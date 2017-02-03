@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: loueatsville
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+  web:
+    build: .
+    command: python src/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/www/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - "db"
