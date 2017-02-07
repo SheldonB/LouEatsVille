@@ -5,4 +5,5 @@ LouEatsVille is a software project undertook to give residents of the City of Lo
 
 ### Running the Application
     docker-compose up
-Access in the browser using localhost:8000
+Access the Angular2 app in the browser using localhost:4200
+Access the Django API at localhost:8000
