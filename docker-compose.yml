@@ -6,12 +6,21 @@ services:
       POSTGRES_DB: loueatsville
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
-  web:
-    build: .
+  server:
+    build: ./server
     command: python src/manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/www/app
+      - ./server:/www/app
     ports:
       - "8000:8000"
     depends_on:
       - "db"
+  client:
+    build: ./client
+    command: npm start
+    volumes:
+      - ./client:/www/app
+    ports:
+      - "4200:4200"
+    depends_on:
+      - "server"
