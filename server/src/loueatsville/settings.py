@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'loueatsville',
 ]
 
@@ -64,6 +65,7 @@ DATABASES = {
         'NAME': 'loueatsville',
         'USER': 'admin',
         'PASSWORD': 'password',
+        # 'HOST': 'localhost',
         'HOST': 'db',
         'PORT': 5432
     }
