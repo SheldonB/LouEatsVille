@@ -8,18 +8,19 @@ class ViolationSerializer(serializers.ModelSerializer):
 
 
 class InspectionSerializer(serializers.ModelSerializer):
+    violations = serializers.HyperlinkedIdentityField(view_name='inspection-violations')
+
     class Meta:
         model = models.Inspection
-        fields = ('id', 'score', 'date', 'type', 'business_id')
+        fields = ('id', 'score', 'date', 'type', 'business_id', 'violations')
 
 
 class BusinessSerializer(serializers.ModelSerializer):
     inspections = serializers.HyperlinkedIdentityField(view_name='business-inspections')
-    violations = serializers.HyperlinkedIdentityField(view_name='business-violations')
 
     class Meta:
         model = models.Business
         fields = ('id', 'name', 'full_address',
                 'latitude', 'longitude', 'phone_number',
-                'inspections', 'violations')
+                'inspections',)
 
