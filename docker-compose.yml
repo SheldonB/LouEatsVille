@@ -2,10 +2,22 @@ version: '2'
 services:
   db:
     image: postgres
+    volumes:
+      - ./data:/home
     environment:
       POSTGRES_DB: loueatsville
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
+  migration: 
+    build: ./server
+    #command: ["./scripts/wait-for-it.sh", "db:5432", "--", "python", "src/manage.py migrate"]
+    command: './scripts/init-db.sh'
+    volumes:
+      - ./server:/www/app
+    links:
+      - db
+    depends_on:
+      - "db"
   server:
     build: ./server
     command: ["./scripts/wait-for-it.sh", "db:5432", "--", "python", "src/manage.py runserver 0.0.0.0:8000"]
@@ -14,7 +26,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - "db"
+      - "migration"
   client:
     build: ./client
     command: npm start
