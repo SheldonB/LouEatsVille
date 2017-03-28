@@ -24,7 +24,7 @@ class InspectionViewSet(viewsets.ReadOnlyModelViewSet):
         violations = models.Violation.objects.filter(business_id=business_id, date=date)
         serializer_context = { 'request': request }
         serializer = serializers.ViolationSerializer(violations, many=True,
-                                                    context=serializer_tontext)
+                                                    context=serializer_context)
         return Response(serializer.data)
 
 
