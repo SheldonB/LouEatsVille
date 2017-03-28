@@ -1,3 +1,11 @@
-<h1>
-  {{title}}
-</h1>
+<nav class="navbar navbar-inverse navbar-custom">
+    <div class="navbar-header">
+      <i class="fa fa-bars" id="menu-toggle" aria-hidden="true" (click)="sideBarToggle()"></i>
+      <img class="navbar-logo" src="assets/fleur_de_lis_gold.svg">
+      <a class="navbar-brand">LouEatsVille</a>
+    </div>
+</nav>
+
+<div [ngClass]="{ 'sidebar': true, 'sidebar-open': sideBarOpen }">
+</div>
+
