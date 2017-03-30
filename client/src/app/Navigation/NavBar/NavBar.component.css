@@ -1,0 +1,27 @@
+.navbar-custom {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  color: white;
+}
+
+.navbar-logo {
+  float: left;
+  height: auto;
+  width: 10%;
+}
+
+#menu-toggle {
+  color: white;
+  float: left;
+  font-size: 44px;
+  padding: 10px;
+}
+
+#menu-toggle:hover {
+  color: #BDBDBD !important;
+}
+
