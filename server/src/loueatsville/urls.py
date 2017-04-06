@@ -9,5 +9,5 @@ router.register(r'violations', views.ViolationViewSet)
 router.register(r'inspections', views.InspectionViewSet)
 
 urlpatterns = [
-        url(r'^', include(router.urls)),
+        url(r'^api/', include(router.urls)),
 ]
