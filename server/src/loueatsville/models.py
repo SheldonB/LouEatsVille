@@ -31,5 +31,5 @@ class Inspection(models.Model):
     business = models.ForeignKey(Business)
     score = models.IntegerField(null=True)
     date = models.DateField()
-    type = models.CharField(max_length=20)
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
 
