@@ -2,21 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
 import { AppComponent } from './app.component';
+import { NavBarComponent } from './navbar/NavBar.component';
+import { MapComponent } from './map/Map.component';
+import { DataPanelComponent } from './data-panel/DataPanel.component';
 
-//import { NavigationModule } from './Navigation/Navigation.module';
-import { NavigationComponent } from './Navigation/Navigation.component';
-import { SideBarComponent } from './Navigation/SideBar/SideBar.component';
-import { NavBarComponent } from './Navigation/NavBar/NavBar.component';
+import { DataPanelService } from './data-panel/DataPanel.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
     NavBarComponent,
-    SideBarComponent
+    MapComponent,
+    DataPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,7 @@ import { NavBarComponent } from './Navigation/NavBar/NavBar.component';
       apiKey: 'AIzaSyA9PfxA1jJZ3WzFhY54ueC4Y5HBHfx_oXE'
     })
   ],
-  providers: [],
+  providers: [DataPanelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
