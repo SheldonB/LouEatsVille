@@ -34,5 +34,7 @@ services:
       - ./client:/www/app
     ports:
       - "4200:4200"
+    links:
+      - server
     depends_on:
       - "server"
