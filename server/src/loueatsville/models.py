@@ -13,7 +13,12 @@ class Business(models.Model):
 
     @property
     def full_address(self):
-        return '%s %s, %s, %d' % (self.address, self.city, self.state, self.postal_code)
+        return '%s\n\r%s, %s %d' % (self.address, self.city, self.state, self.postal_code)
+    
+    @property
+    def most_recent_inspection(self):
+        recent_inspection = Inspection.objects.filter(business_id=self.id).exclude(type='FOLLOWUP').latest('date')
+        return recent_inspection
 
 
 class Violation(models.Model):
