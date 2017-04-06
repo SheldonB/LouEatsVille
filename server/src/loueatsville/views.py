@@ -2,9 +2,11 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFilter, RangeFilter
 
 from loueatsville import models
 from loueatsville import serializers
+
 
 class ViolationViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Violation.objects.all()
@@ -28,9 +30,18 @@ class InspectionViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
+class BusinessFilter(FilterSet):
+    name = CharFilter(name='name', lookup_expr='icontains')
+    class Meta:
+        model = models.Business
+        fields = ['name']
+
+
 class BusinessViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Business.objects.all()
     serializer_class = serializers.BusinessSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_class = BusinessFilter
 
     @detail_route()
     def inspections(self, request, pk=None):
@@ -39,5 +50,3 @@ class BusinessViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = serializers.InspectionSerializer(inspections, many=True,
                                                         context=serializer_context)
         return Response(serializer.data)
-
-
