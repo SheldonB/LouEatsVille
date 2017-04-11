@@ -6,6 +6,8 @@ WORKDIR /www/app/
 
 ADD ./package.json /www/app/
 
+RUN npm install -g @angular/cli
+
 RUN npm install
 
 ADD . /www/app/

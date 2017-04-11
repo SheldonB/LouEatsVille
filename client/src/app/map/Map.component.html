@@ -1,0 +1,13 @@
+<sebm-google-map [latitude]="38.210664" [longitude]="-85.757151" [zoom]="12">
+  <div *ngFor="let business of businesses">
+    <sebm-google-map-marker [latitude]="business.latitude" [longitude]="business.longitude" iconUrl="{{getPin(business)}}">
+      <sebm-google-map-info-window>
+        <strong>{{business.name}}</strong>
+        <p>{{business.full_address}}</p>
+        <p>Most Recent Inspection: {{business.most_recent_inspection?.date || 'N/A'}}</p>
+        <p>Score: {{business.most_recent_inspection?.score || 'N/A'}}</p>
+        <button (click)="pinClicked(business)" class="btn btn-sm btn-block btn-primary">View All Inspections</button>
+      </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+  </div>
+</sebm-google-map>

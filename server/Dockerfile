@@ -5,6 +5,8 @@ FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1
 
+RUN apt-get update -qq && apt-get install -y postgresql-client
+
 RUN mkdir -p /www/app
 
 WORKDIR /www/app/

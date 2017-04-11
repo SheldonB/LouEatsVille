@@ -1,0 +1,16 @@
+.data-panel {
+  right: 0;
+  background-color: #F5F5F5;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  top: 64px;
+  transition-duration: 0.5s;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+}
+
+.data-panel-open {
+  width: 750px;
+  transition-duration: 0.5s;
+}
