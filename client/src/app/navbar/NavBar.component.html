@@ -5,9 +5,9 @@
       <a class="navbar-brand">LouEatsVille</a>
       <div class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input (keyup.enter)="applyClicked()" [(ngModel)]="searchTerm" type="text" class="form-control" placeholder="Search">
         </div>
-        <button class="btn btn-default">Apply</button>
+        <button (click)="applyClicked()" class="btn btn-default">Apply</button>
       </div>
     </div>
   </div>

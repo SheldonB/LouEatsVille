@@ -11,6 +11,7 @@ import { MapComponent } from './map/Map.component';
 import { DataPanelComponent } from './data-panel/DataPanel.component';
 
 import { DataPanelService } from './data-panel/DataPanel.service';
+import { NavBarService } from './navbar/NavBar.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { DataPanelService } from './data-panel/DataPanel.service';
       apiKey: 'AIzaSyA9PfxA1jJZ3WzFhY54ueC4Y5HBHfx_oXE'
     })
   ],
-  providers: [DataPanelService],
+  providers: [DataPanelService, NavBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
