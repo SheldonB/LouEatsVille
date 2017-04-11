@@ -1,12 +1,30 @@
 import os
+import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = '26eg*65k52=z615g_0zr6k5$zdws^kl#b1esxr65%a%57v!g&#'
+with open('config.json') as json_file:
+    config = json.load(json_file)
 
-DEBUG = True
+if config['state'] == 'dev':
+    DEBUG = True
+    ALLOWED_HOSTS = []
+else:
+    DEBUG = False
+    ALLOWED_HOSTS = ['127.0.0.1']
 
-ALLOWED_HOSTS = []
+SECRET_KEY = config['secret_key']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config['database_name'],
+        'USER': config['database_user'],
+        'PASSWORD': config['database_password'],
+        'HOST': config['database_host'],
+        'PORT': 5432
+    }
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -50,18 +68,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'loueatsville.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'loueatsville',
-        'USER': 'admin',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        # 'HOST': 'db',
-        'PORT': 5432
-    }
-}
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -80,7 +86,7 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 500
 }
 
 LANGUAGE_CODE = 'en-us'
