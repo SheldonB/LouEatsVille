@@ -1,12 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
+import { NavBarComponent } from './navbar/NavBar.component';
+import { DataPanelCompoent } from './data-panel/DataPanel.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        NavBarComponent,
+        DataPanelCompoent
       ],
     }).compileComponents();
   }));
