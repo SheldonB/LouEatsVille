@@ -1,30 +1,35 @@
 import os
 import json
 
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 with open('config.json') as json_file:
     config = json.load(json_file)
 
-if config['state'] == 'dev':
-    DEBUG = True
-    ALLOWED_HOSTS = []
-else:
-    DEBUG = False
-    ALLOWED_HOSTS = ['127.0.0.1']
-
-SECRET_KEY = config['secret_key']
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config['database_name'],
-        'USER': config['database_user'],
-        'PASSWORD': config['database_password'],
-        'HOST': config['database_host'],
-        'PORT': 5432
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config['database_name'],
+            'USER': config['database_user'],
+            'PASSWORD': config['database_password'],
+            'HOST': config['database_host'],
+            'PORT': 5432
+        }
     }
-}
+    if config['state'] == 'dev':
+        DEBUG = True
+        ALLOWED_HOSTS = []
+    else:
+        DEBUG = False
+        ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+        db_from_env = dj_database_url.config()
+        DATABASES['default'].update(db_from_env)
+
+    SECRET_KEY = config['secret_key']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -53,7 +58,9 @@ ROOT_URLCONF = 'loueatsville.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,6 +106,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 
 CORS_ORIGIN_ALLOW_ALL = True
