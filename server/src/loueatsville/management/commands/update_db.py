@@ -18,9 +18,12 @@ class Command(BaseCommand):
 
     def update_businesses(self):
         try:
+            self.stdout.write('Downloading Businesses from Louisville Open Data Portal.....', ending='')
             response = urllib.request.urlopen(self.BUSINESS_URL)
-            self.stdout.write('Downloading Businesses from Louisville Open Data Portal.....')
+            self.stdout.write('Completed')
+            self.stdout.write('Checking for differences in Business data')
             reader = csv.DictReader(io.TextIOWrapper(response))
+
             for row in reader:
                 id = row['business_id']
                 name = row['name']
@@ -51,9 +54,12 @@ class Command(BaseCommand):
 
     def update_inspections(self):
         try:
+            self.stdout.write('Downloading Inspections from Louisville Open Data Portal.....', ending='')
             response = urllib.request.urlopen(self.INSPECTION_URL)
-            self.stdout.write('Downloading Inspections from Louisville Open Data Portal.....')
+            self.stdout.write('Completed')
+            self.stdout.write('Checking for differences in Inspection data')
             reader = csv.DictReader(io.TextIOWrapper(response))
+
             for row in reader:
                 business_id = row['business_id']
                 date = datetime.datetime.strptime(row['date'], '%Y%m%d')
@@ -75,8 +81,10 @@ class Command(BaseCommand):
 
     def update_violations(self):
         try:
+            self.stdout.write('Downloading Violations from Louisville Open Data Portal.....', ending='')
             response = urllib.request.urlopen(self.VIOLATIONS_URL)
-            self.stdout.write('Downloading Violations from Louisville Open Data Portal.....')
+            self.stdout.write('Completed')
+            self.stdout.write('Checking for differences in Violation data')
             reader = csv.DictReader(io.TextIOWrapper(response))
 
             for row in reader:
@@ -89,7 +97,7 @@ class Command(BaseCommand):
 
                 if not Violation.objects.filter(business__id=business_id, date=date, description=description).exists():
                     business = Business.objects.get(id=business_id)
-                    self.stdout.write('New violation found for ' + business.name + ' on ' + str(date) + ' - ' + description)
+                    self.stdout.write('New violation found for ' + business.name + ' on ' + str(date) + ' - ' + str(description))
                     new_violation = Violation(business=business, date=date, description=description)
                     new_violation.save()
 
