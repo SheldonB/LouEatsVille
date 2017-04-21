@@ -40,7 +40,7 @@ LouEatsVille usese a custom build configuration environment for simply deploymen
     "secret_key": "This is a secret key",
     "database_name": "loueatsville",
     "database_user": "admin",
-    "database_password" "password",
+    "database_password": "password",
     "database_host": "localhost"
 }
 ```
